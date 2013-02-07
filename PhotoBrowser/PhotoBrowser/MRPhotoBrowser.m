@@ -1,5 +1,5 @@
 #import "MRPhotoBrowser.h"
-#import "MRZoomingScrollView.h"
+#import "MRPhotoZoomingScrollView.h"
 #import "MKNetworkEngine.h"
 
 #define kECPadding 10
@@ -101,11 +101,11 @@
 	_pagingScrollView.frame = self.pagingScrollViewFrame;
 	_pagingScrollView.contentSize = self.pagingScrollViewContentSize;
 
-	for (MRZoomingScrollView *page in _visiblePages) {
+	for (MRPhotoZoomingScrollView *page in _visiblePages) {
         NSInteger index = ECPageIndex(page);
 		page.frame = [self frameForPageAtIndex:index];
         page.captionView.frame = [self frameForCaptionView:page.captionView atIndex:index];
-		[page setMaxMinZoomScalesForCurrentBounds];
+        [page setupZoomScales];
 	}
 
 	// Adjust contentOffset to preserve page location based on values collected prior to location
@@ -126,7 +126,7 @@
     NSInteger last = (NSInteger)floorf((CGRectGetMaxX(bounds) - kECPadding * 2 - 1) / CGRectGetWidth(bounds));
     last = MIN(MAX(last, 0), _photos.count - 1);
 
-    for (MRZoomingScrollView *page in _visiblePages) {
+    for (MRPhotoZoomingScrollView *page in _visiblePages) {
         NSInteger pageIndex = ECPageIndex(page);
 		if (pageIndex < first || pageIndex > last) {
 			[_recycledPages addObject:page];
@@ -142,9 +142,9 @@
 
 	for (NSInteger index = first; index <= last; index++) {
 		if (![self isDisplayingPageForIndex:index]) {
-            MRZoomingScrollView *page = [self dequeueRecycledPage];
+            MRPhotoZoomingScrollView *page = [self dequeueRecycledPage];
 			if (!page) {
-				page = [[MRZoomingScrollView alloc] initWithPhotoBrowser:self];
+				page = [[MRPhotoZoomingScrollView alloc] initWithPhotoBrowser:self];
 			}
 			[self configurePage:page forIndex:index];
 			[_visiblePages addObject:page];
@@ -154,14 +154,14 @@
 
 }
 
-- (void)configurePage:(MRZoomingScrollView *)page forIndex:(NSInteger)index {
+- (void)configurePage:(MRPhotoZoomingScrollView *)page forIndex:(NSInteger)index {
 	page.frame = [self frameForPageAtIndex:index];
     page.tag = kECPageTagBase + index;
     page.photo = [self photoAtIndex:index];
 }
 
-- (MRZoomingScrollView *)dequeueRecycledPage {
-    MRZoomingScrollView *page = [_recycledPages anyObject];
+- (MRPhotoZoomingScrollView *)dequeueRecycledPage {
+    MRPhotoZoomingScrollView *page = [_recycledPages anyObject];
 	if (page) {
 		[_recycledPages removeObject:page];
 	}

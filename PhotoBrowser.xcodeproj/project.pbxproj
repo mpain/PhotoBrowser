@@ -20,7 +20,7 @@
 		CA01FBB9897606AE8C03116B /* MRTapImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FB579E263E15BEB3C91B /* MRTapImageView.m */; };
 		CA01FBD00D9E440749634599 /* NSString+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F57765F5C7FBCF4FA78A /* NSString+MKNetworkKitAdditions.m */; };
 		CA01FC3E2AAA5B7565E6F88B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01FA55E7764E67D8C5ABDD /* UIKit.framework */; };
-		CA01FD1BD848B4ABA86D9095 /* MRZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FC54E87AD10CEC95DBCD /* MRZoomingScrollView.m */; };
+		CA01FD1BD848B4ABA86D9095 /* MRPhotoZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FC54E87AD10CEC95DBCD /* MRPhotoZoomingScrollView.m */; };
 		CA01FD622D3345E58E903285 /* NSDate+RFC1123.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F135A9203588B90B5157 /* NSDate+RFC1123.m */; };
 		CA01FD94AD9605B974AA76E9 /* UIAlertView+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F37E7E5D6A8AAFBDED73 /* UIAlertView+MKNetworkKitAdditions.m */; };
 		CA01FDDE9286C6073B18FC24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01F5566147435A152E79F5 /* CoreGraphics.framework */; };
@@ -51,7 +51,7 @@
 		CA01F5D3CAB33F220664486C /* ITAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ITAppDelegate.h; sourceTree = "<group>"; };
 		CA01F6C0D23FBA2E5FE7ACEC /* NSString+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
 		CA01F6C498C8B18D70EE1E06 /* UIAlertView+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
-		CA01F720597BCE2660F6441B /* MRZoomingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRZoomingScrollView.h; sourceTree = "<group>"; };
+		CA01F720597BCE2660F6441B /* MRPhotoZoomingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRPhotoZoomingScrollView.h; sourceTree = "<group>"; };
 		CA01F8415A2E7A76C0C36E68 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CA01F89FCD38FFF53CB3AF89 /* MKNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkOperation.h; sourceTree = "<group>"; };
 		CA01F8ACE324E4E4B9BC4CEF /* NSData+MKBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MKBase64.h"; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 		CA01FA33D94433257C01934E /* PhotoBrowser-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "PhotoBrowser-Info.plist"; sourceTree = "<group>"; };
 		CA01FA55E7764E67D8C5ABDD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CA01FB579E263E15BEB3C91B /* MRTapImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTapImageView.m; sourceTree = "<group>"; };
-		CA01FC54E87AD10CEC95DBCD /* MRZoomingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRZoomingScrollView.m; sourceTree = "<group>"; };
+		CA01FC54E87AD10CEC95DBCD /* MRPhotoZoomingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRPhotoZoomingScrollView.m; sourceTree = "<group>"; };
 		CA01FDC40D27C25FC78572F9 /* MKNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkEngine.h; sourceTree = "<group>"; };
 		CA01FE3BDA179717C35CAB8B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		CA01FE603BF493832E3FC968 /* PhotoBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,8 +191,8 @@
 				CA01F4FC1F0EE2E801AA4965 /* MRPhotoBrowser.h */,
 				CA01FB579E263E15BEB3C91B /* MRTapImageView.m */,
 				CA01F8CED126D697B4D56B2E /* MRTapImageView.h */,
-				CA01FC54E87AD10CEC95DBCD /* MRZoomingScrollView.m */,
-				CA01F720597BCE2660F6441B /* MRZoomingScrollView.h */,
+				CA01FC54E87AD10CEC95DBCD /* MRPhotoZoomingScrollView.m */,
+				CA01F720597BCE2660F6441B /* MRPhotoZoomingScrollView.h */,
 			);
 			path = PhotoBrowser;
 			sourceTree = "<group>";
@@ -275,7 +275,7 @@
 				CA01FDF65B2D364AE650D315 /* MRPhoto.m in Sources */,
 				CA01F7398F76F3D7D4380AD9 /* MRPhotoBrowser.m in Sources */,
 				CA01FBB9897606AE8C03116B /* MRTapImageView.m in Sources */,
-				CA01FD1BD848B4ABA86D9095 /* MRZoomingScrollView.m in Sources */,
+				CA01FD1BD848B4ABA86D9095 /* MRPhotoZoomingScrollView.m in Sources */,
 				CA01FED34057BA16C41FB790 /* NSAlert+MKNetworkKitAdditions.m in Sources */,
 				CA01FA222CC2A547BDEF3B24 /* NSData+MKBase64.m in Sources */,
 				CA01FD622D3345E58E903285 /* NSDate+RFC1123.m in Sources */,
