@@ -1,7 +1,7 @@
-#import "MRTapImageView.h"
+#import "MRPhotoTapImageView.h"
 
 
-@implementation MRTapImageView
+@implementation MRPhotoTapImageView
 
 
 - (id)initWithFrame:(CGRect)frame {
@@ -50,18 +50,21 @@
 }
 
 - (void)handleSingleTap:(UITouch *)touch {
-    if ([_userInputDelegate respondsToSelector:@selector(view:singleTapDetected:)])
+    if ([_userInputDelegate respondsToSelector:@selector(view:singleTapDetected:)]) {
         [_userInputDelegate view:self singleTapDetected:touch];
+    }
 }
 
 - (void)handleDoubleTap:(UITouch *)touch {
-    if ([_userInputDelegate respondsToSelector:@selector(view:doubleTapDetected:)])
+    if ([_userInputDelegate respondsToSelector:@selector(view:doubleTapDetected:)]) {
         [_userInputDelegate view:self doubleTapDetected:touch];
+    }
 }
 
 - (void)handleTripleTap:(UITouch *)touch {
-    if ([_userInputDelegate respondsToSelector:@selector(view:tripleTapDetected:)])
+    if ([_userInputDelegate respondsToSelector:@selector(view:tripleTapDetected:)]) {
         [_userInputDelegate view:self tripleTapDetected:touch];
+    }
 }
 
 @end

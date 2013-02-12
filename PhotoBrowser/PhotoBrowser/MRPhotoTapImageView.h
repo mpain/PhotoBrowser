@@ -2,7 +2,7 @@
 
 @protocol MRTapImageViewDelegate;
 
-@interface MRTapImageView : UIImageView
+@interface MRPhotoTapImageView : UIImageView
 
 @property (nonatomic, weak) id<MRTapImageViewDelegate> userInputDelegate;
 

@@ -1,19 +1,12 @@
-//
-//  ITAppDelegate.m
-//  PhotoBrowser
-//
-//  Created by Sergey Samoylov on 02/06/13.
-//  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
-//
-
 #import "ITAppDelegate.h"
+#import "MRMainViewController.h"
 
 @implementation ITAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    self.window.rootViewController = [MRMainViewController new];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

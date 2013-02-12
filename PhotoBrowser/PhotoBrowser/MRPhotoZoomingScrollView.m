@@ -3,10 +3,9 @@
 
 @interface MRPhotoZoomingScrollView ()
 
-@property (nonatomic, strong) MRPhoto *photo;
 @property (nonatomic, weak) UIActivityIndicatorView *spinner;
-@property (nonatomic, weak) MRTapImageView *tapView;
-@property (nonatomic, weak) MRTapImageView *photoView;
+@property (nonatomic, weak) MRPhotoTapImageView *tapView;
+@property (nonatomic, weak) MRPhotoTapImageView *photoView;
 
 @end
 
@@ -23,14 +22,14 @@
 }
 
 - (void)setupControl {
-    MRTapImageView *tapView = [[MRTapImageView alloc] initWithFrame:self.bounds];
+    MRPhotoTapImageView *tapView = [[MRPhotoTapImageView alloc] initWithFrame:self.bounds];
     tapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     tapView.userInputDelegate = self;
     tapView.backgroundColor = UIColor.clearColor;
     [self addSubview:tapView];
     _tapView = tapView;
 
-    MRTapImageView *photoView = [[MRTapImageView alloc] initWithFrame:CGRectZero];
+    MRPhotoTapImageView *photoView = [[MRPhotoTapImageView alloc] initWithFrame:CGRectZero];
     photoView.userInputDelegate = self;
     photoView.backgroundColor = UIColor.clearColor;
     photoView.contentMode = UIViewContentModeCenter;
@@ -43,7 +42,7 @@
     [self addSubview:spinner];
     _spinner = spinner;
 
-    self.backgroundColor = [UIColor blackColor];
+    self.backgroundColor = [UIColor clearColor];
     self.delegate = self;
     self.showsHorizontalScrollIndicator = NO;
     self.showsVerticalScrollIndicator = NO;
@@ -80,8 +79,10 @@
     [self displayImage];
 }
 
+
 - (void)displayImage {
 	if (!_photo || _photoView.image) {
+        [self setupZoomScales];
         return;
     }
 
@@ -148,6 +149,7 @@
 
 - (void)prepareForReuse {
     _photo = nil;
+    _controlsDelegate = nil;
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -157,25 +159,27 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	[_photoBrowser cancelControlHiding];
+    [self cancelControlsOperations];
 }
 
 - (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
-	[_photoBrowser cancelControlHiding];
+    [self cancelControlsOperations];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-	[_photoBrowser hideControlsAfterDelay];
+    [self hideControls];
 }
 
 - (void)view:(UIView *)view singleTapDetected:(UITouch *)touch {
-    [_photoBrowser performSelector:@selector(toggleControls) withObject:nil afterDelay:0.2];
+    if ([self.controlsDelegate respondsToSelector:@selector(toggleControls)]) {
+        [self.controlsDelegate toggleControls];
+    }
 }
 
 - (void)view:(UIView *)view doubleTapDetected:(UITouch *)touch {
     CGPoint touchPoint = [touch locationInView:view];
 
-    [NSObject cancelPreviousPerformRequestsWithTarget:_photoBrowser];
+    [self cancelControlsOperations];
 
     if (self.zoomScale == self.maximumZoomScale) {
         [self setZoomScale:self.minimumZoomScale animated:YES];
@@ -183,8 +187,18 @@
         [self zoomToRect:CGRectMake(touchPoint.x, touchPoint.y, 1, 1) animated:YES];
     }
 
-    [_photoBrowser hideControlsAfterDelay];
+    [self hideControls];
 }
 
+- (void)cancelControlsOperations {
+    if ([self.controlsDelegate respondsToSelector:@selector(cancelControlsOperations)]) {
+        [self.controlsDelegate cancelControlsOperations];
+    }
+}
 
+- (void)hideControls {
+    if ([self.controlsDelegate respondsToSelector:@selector(hideControls)]) {
+        [self.controlsDelegate hideControls];
+    }
+}
 @end
