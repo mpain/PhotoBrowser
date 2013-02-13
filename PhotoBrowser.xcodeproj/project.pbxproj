@@ -11,6 +11,7 @@
 		CA01F015DB0CC9B1465C724E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA01FE78DEEA394577AA5642 /* InfoPlist.strings */; };
 		CA01F04C600A6C6542068D33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01F3A258D8F4F8502ACC17 /* Foundation.framework */; };
 		CA01F0AB7FF9FF841EAE94F9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01FC191242D5362E72172E /* Security.framework */; };
+		CA01F1B76A96F23DECA2DF59 /* MRImageHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F944C02D8597D0453A61 /* MRImageHolder.m */; };
 		CA01F20AB34DA2827F947EEB /* MRPhotoGrayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F01D7C371F319293B5D8 /* MRPhotoGrayButton.m */; };
 		CA01F3548A6529985A61FAAA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01F09A9A2749510B38F403 /* SystemConfiguration.framework */; };
 		CA01F4A5EDF031C614588644 /* UIView+MRShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FBC4F70912F6B18CF614 /* UIView+MRShadow.m */; };
@@ -21,6 +22,7 @@
 		CA01F6FAAFD17A558D118621 /* MRPhotoPassThroughView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FFB2917E22858FBF7D55 /* MRPhotoPassThroughView.m */; };
 		CA01F7398F76F3D7D4380AD9 /* MRPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FFD8F508766D96193615 /* MRPhotoBrowser.m */; };
 		CA01F7B875BBC5CE32FDACB5 /* MRMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FD2D367DD1725FC8E431 /* MRMainViewController.m */; };
+		CA01F87894E46E123942350A /* MRPhotoBrowserPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F59CBC0F96649E424CD9 /* MRPhotoBrowserPresenter.m */; };
 		CA01F96AC69A3A9BB162B97E /* MKNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F3CFA5A8216DD2BC2CD3 /* MKNetworkOperation.m */; };
 		CA01F9AD1EF270A1B2009515 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01FBFFCDFB42A32F035115 /* CFNetwork.framework */; };
 		CA01FA222CC2A547BDEF3B24 /* NSData+MKBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F9D4FE7DBC4356336CCE /* NSData+MKBase64.m */; };
@@ -33,6 +35,7 @@
 		CA01FD622D3345E58E903285 /* NSDate+RFC1123.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F135A9203588B90B5157 /* NSDate+RFC1123.m */; };
 		CA01FD94AD9605B974AA76E9 /* UIAlertView+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F37E7E5D6A8AAFBDED73 /* UIAlertView+MKNetworkKitAdditions.m */; };
 		CA01FDDE9286C6073B18FC24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01F5566147435A152E79F5 /* CoreGraphics.framework */; };
+		CA01FDE99A06868A56F61D03 /* UIApplication+WindowOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F5FC240747C88CE97933 /* UIApplication+WindowOverlay.m */; };
 		CA01FDE9B29D8915C06E133A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F0FFF91F426D7EF4F679 /* main.m */; };
 		CA01FDF65B2D364AE650D315 /* MRPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F3E194204E7A5F1F727B /* MRPhoto.m */; };
 		CA01FE782FD625E228148809 /* NSDictionary+RequestEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FEEDB886A9816D92118E /* NSDictionary+RequestEncoding.m */; };
@@ -48,6 +51,7 @@
 		CA01F0FFF91F426D7EF4F679 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CA01F129300F5A19505A7B4D /* MKNetworkEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNetworkEngine.m; sourceTree = "<group>"; };
 		CA01F135A9203588B90B5157 /* NSDate+RFC1123.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+RFC1123.m"; sourceTree = "<group>"; };
+		CA01F145BEA9339430188841 /* UIApplication+WindowOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+WindowOverlay.h"; sourceTree = "<group>"; };
 		CA01F1A946D698BF69B17BDF /* UIView+MRShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MRShadow.h"; sourceTree = "<group>"; };
 		CA01F22FEAA8DFF25E22E575 /* MRPhotoGrayButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRPhotoGrayButton.h; sourceTree = "<group>"; };
 		CA01F244E1193DF454005EE7 /* MRPhotoPassThroughView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRPhotoPassThroughView.h; sourceTree = "<group>"; };
@@ -64,14 +68,19 @@
 		CA01F53D68C1673B05C9707A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CA01F5566147435A152E79F5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CA01F57765F5C7FBCF4FA78A /* NSString+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
+		CA01F59CBC0F96649E424CD9 /* MRPhotoBrowserPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRPhotoBrowserPresenter.m; sourceTree = "<group>"; };
 		CA01F5D3CAB33F220664486C /* ITAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ITAppDelegate.h; sourceTree = "<group>"; };
+		CA01F5D96EF9896709153C03 /* MRPhotoBrowserPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRPhotoBrowserPresenter.h; sourceTree = "<group>"; };
+		CA01F5FC240747C88CE97933 /* UIApplication+WindowOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+WindowOverlay.m"; sourceTree = "<group>"; };
 		CA01F6C0D23FBA2E5FE7ACEC /* NSString+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
 		CA01F6C498C8B18D70EE1E06 /* UIAlertView+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
 		CA01F720597BCE2660F6441B /* MRPhotoZoomingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRPhotoZoomingScrollView.h; sourceTree = "<group>"; };
+		CA01F80AE77363F6A2DB8D29 /* MRImageHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRImageHolder.h; sourceTree = "<group>"; };
 		CA01F8415A2E7A76C0C36E68 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CA01F89FCD38FFF53CB3AF89 /* MKNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkOperation.h; sourceTree = "<group>"; };
 		CA01F8ACE324E4E4B9BC4CEF /* NSData+MKBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MKBase64.h"; sourceTree = "<group>"; };
 		CA01F8CED126D697B4D56B2E /* MRPhotoTapImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRPhotoTapImageView.h; sourceTree = "<group>"; };
+		CA01F944C02D8597D0453A61 /* MRImageHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRImageHolder.m; sourceTree = "<group>"; };
 		CA01F97A068A566FCE1AA53F /* NSAlert+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAlert+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
 		CA01F99DAEDFA3B3DE2AAAAE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CA01F9D4FE7DBC4356336CCE /* NSData+MKBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MKBase64.m"; sourceTree = "<group>"; };
@@ -167,6 +176,12 @@
 			children = (
 				CA01FD2D367DD1725FC8E431 /* MRMainViewController.m */,
 				CA01F301FB75EA335BB003EC /* MRMainViewController.h */,
+				CA01F944C02D8597D0453A61 /* MRImageHolder.m */,
+				CA01F80AE77363F6A2DB8D29 /* MRImageHolder.h */,
+				CA01F59CBC0F96649E424CD9 /* MRPhotoBrowserPresenter.m */,
+				CA01F5D96EF9896709153C03 /* MRPhotoBrowserPresenter.h */,
+				CA01F5FC240747C88CE97933 /* UIApplication+WindowOverlay.m */,
+				CA01F145BEA9339430188841 /* UIApplication+WindowOverlay.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -345,6 +360,9 @@
 				CA01F6FAAFD17A558D118621 /* MRPhotoPassThroughView.m in Sources */,
 				CA01F20AB34DA2827F947EEB /* MRPhotoGrayButton.m in Sources */,
 				CA01F4A5EDF031C614588644 /* UIView+MRShadow.m in Sources */,
+				CA01F1B76A96F23DECA2DF59 /* MRImageHolder.m in Sources */,
+				CA01F87894E46E123942350A /* MRPhotoBrowserPresenter.m in Sources */,
+				CA01FDE99A06868A56F61D03 /* UIApplication+WindowOverlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
