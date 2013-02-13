@@ -7,6 +7,6 @@ typedef void (^MRPhotoBrowserPresenterBlock)();
 @property (nonatomic, copy) MRPhotoBrowserPresenterBlock block;
 
 - (void)animateForView:(UIView *)mainView;
-- (void)animateImage:(UIImage *)image withFrame:(CGRect)frame forView:(UIView *)mainView;
+- (void)animateImage:(UIImage *)image fromView:(UIView *)view constraintToView:(UIView *)mainView;
 - (void)dismissFromView:(UIView *)mainView block:(void (^)())completionBlock;
 @end

@@ -1,5 +1,4 @@
 #import "MRPhotoBrowser.h"
-#import "MRPhotoZoomingScrollView.h"
 #import "MRPhoto.h"
 #import "MRPhotoPassThroughView.h"
 #import "MRPhotoGrayButton.h"
@@ -319,14 +318,14 @@
         if (pageIndex > 0) {
             MRPhoto *previous = _photos[pageIndex - 1];
             if (!previous.image) {
-                [self pageDisplayingPhoto:previous].photo = photo;
+                [self pageDisplayingPhoto:previous].photo = previous;
             }
         }
 
         if (pageIndex < _photos.count - 1) {
             MRPhoto *next = _photos[pageIndex + 1];
             if (!next.image) {
-                [self pageDisplayingPhoto:next].photo = photo;
+                [self pageDisplayingPhoto:next].photo = next;
             }
         }
     }

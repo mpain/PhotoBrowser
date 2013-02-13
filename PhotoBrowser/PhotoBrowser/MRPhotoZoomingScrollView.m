@@ -83,6 +83,7 @@
 - (void)displayImage {
 	if (!_photo || _photoView.image) {
         [self setupZoomScales];
+        [self setNeedsLayout];
         return;
     }
 
@@ -101,26 +102,34 @@
             .size = myself.photo.image.size
         };
 
+        [myself resetZoomScales];
         myself.photoView.frame = frame;
         myself.contentSize = frame.size;
+
+        NSLog(@"Setup image frame = %@", NSStringFromCGRect(myself.photoView.frame));
 
         [myself setupZoomScales];
     }];
 
-    [self setNeedsLayout];
+    if (!self.photo.image) {
+        [self setNeedsLayout];
+    }
 }
 
+- (void)resetZoomScales {
+    self.maximumZoomScale = 1.0;
+    self.minimumZoomScale = 1.0;
+    self.zoomScale = 1.0;
+}
 - (void)setupZoomScales {
-	self.maximumZoomScale = 1.0;
-	self.minimumZoomScale = 1.0;
-	self.zoomScale = 1.0;
+	[self resetZoomScales];
 
 	if (!_photoView.image) {
         return;
     }
-
     CGSize boundsSize = self.bounds.size;
     CGSize imageSize = _photoView.frame.size;
+    NSLog(@"bounds = %@, image = %@", NSStringFromCGRect(self.bounds), NSStringFromCGRect(_photoView.frame));
 
     CGFloat scaleX = boundsSize.width / imageSize.width;
     CGFloat scaleY = boundsSize.height / imageSize.height;
@@ -143,12 +152,15 @@
 	_photoView.frame = (CGRect) {
         .size = _photoView.frame.size
     };
+
+    NSLog(@"frame = %@, zoom = %f", NSStringFromCGRect(_photoView.frame), scaleMin);;
 	[self setNeedsLayout];
 
 }
 
 - (void)prepareForReuse {
     _photo = nil;
+    _photoView.image = nil;
     _controlsDelegate = nil;
 }
 

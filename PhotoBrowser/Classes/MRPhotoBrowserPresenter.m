@@ -50,18 +50,22 @@
     }];
 }
 
-- (void)animateImage:(UIImage *)image withFrame:(CGRect)frame forView:(UIView *)mainView {
+- (void)animateImage:(UIImage *)image fromView:(UIView *)view constraintToView:(UIView *)mainView {
+    CGRect frame = [view convertRect:view.bounds toView:mainView];
 
+    NSLog(@"Frame: %@", NSStringFromCGRect(frame));
     _imageHolder = [[MRImageHolder alloc] initWithFrame:frame];
     _imageHolder.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _imageHolder.image = image;
     [self addSubview:_imageHolder];
+
+    _imageHolder.image = image;
+
 
     [self rotateAccordingToStatusBarOrientationAndSupportedOrientations];
 
     __weak MRPhotoBrowserPresenter *myself = self;
 
-    [UIView animateWithDuration:2.0 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         mainView.transform = CGAffineTransformScale(mainView.transform, 0.9, 0.9);
         mainView.alpha = 0.0;
 
@@ -72,12 +76,14 @@
         holderFrame.origin.y = (size.height - holderFrame.size.height) / 2 - [UIApplication sharedApplication].statusBarFrame.size.height;
         holderFrame.size.width = size.width;
         myself.imageHolder.frame = holderFrame;
+        [myself.imageHolder relayout];
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:2.0 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             CGRect holderFrame = myself.imageHolder.frame;
             holderFrame.size.height = myself.imageHolder.imageHolder.bounds.size.height;
             holderFrame.origin.y = (myself.size.height - holderFrame.size.height) / 2 - [UIApplication sharedApplication].statusBarFrame.size.height;
             myself.imageHolder.frame = holderFrame;
+            [myself.imageHolder relayout];
         } completion:^(BOOL finished1) {
             if (myself.block) {
                 myself.block();
@@ -103,8 +109,11 @@
 }
 
 - (void)dismissFromView:(UIView *)mainView block:(void (^)())completionBlock {
+    CGAffineTransform old = mainView.transform;
+
+    mainView.transform = CGAffineTransformScale(old, 0.9, 0.9);
     [UIView animateWithDuration:0.3 animations:^{
-        mainView.transform = CGAffineTransformScale(mainView.transform, 1.0, 1.0);
+        mainView.transform = old;
         mainView.alpha = 1.0;
     } completion:^(BOOL finished) {
         if (completionBlock) {

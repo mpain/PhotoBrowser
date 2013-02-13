@@ -72,7 +72,8 @@ static NSString *const kMRPhotoAlbumBaseUrl = @"http://content.foto.mail.ru/mail
 
     [window addSubview:_presenter];
     [UIApplication sharedApplication].statusBarHidden = YES;
-    [_presenter animateImage:_holder.image withFrame:[_holder convertRect:_holder.bounds toView:window.rootViewController.view] forView:window.rootViewController.view];
+    NSLog(@"Holder frame: %@", NSStringFromCGRect(_holder.frame));
+    [_presenter animateImage:_holder.image fromView:_holder constraintToView:window.rootViewController.view];
 
 }
 
