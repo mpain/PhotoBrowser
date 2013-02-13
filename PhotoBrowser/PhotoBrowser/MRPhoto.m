@@ -69,6 +69,10 @@
     NSURL *url = [[NSURL alloc] initWithString:_urlString];
 
     MKNetworkEngine *engine = [_delegate networkEngineForPhoto:self];
+    if (!engine) {
+        [self handleResult:NO block:block];
+        return;
+    }
 
     __weak MRPhoto *myself = self;
     self.operation = [engine imageAtURL:url
