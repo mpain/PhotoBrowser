@@ -205,11 +205,9 @@
         [page setupZoomScales];
 	}
 
-	// Adjust contentOffset to preserve page location based on values collected prior to location
 	_pagingScrollView.contentOffset = [self pagingScrollViewContentOffsetForPageAtIndex:indexPriorToLayout];
 	[self didStartViewingPageAtIndex:_currentPageIndex];
 
-	// Reset
 	_currentPageIndex = indexPriorToLayout;
 }
 
