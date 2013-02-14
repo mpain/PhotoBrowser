@@ -1,10 +1,15 @@
-#import <QuartzCore/QuartzCore.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import "MRPhotoBrowserPresenter.h"
 #import "MRImageHolder.h"
+#import "MRPhotoBrowser.h"
 
 @interface MRPhotoBrowserPresenter ()
+
 @property (nonatomic, strong) MRImageHolder *imageHolder;
+@property (nonatomic, strong) MRPhotoBrowser *photoBrowser;
+@property (nonatomic, weak) UIView *mainView;
+@property (nonatomic, assign) BOOL savedStatusBarHiddenStatus;
+
 @end
 
 @implementation MRPhotoBrowserPresenter {
@@ -30,47 +35,34 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)animateForView:(UIView *)mainView {
-    __weak MRPhotoBrowserPresenter *myself = self;
+- (void)presentPhotoBrowserWithImage:(UIImage *)image fromView:(UIView *)view constrainedToView:(UIView *)mainView {
+    [self hideStatusBar];
 
+    _mainView = mainView;
 
-    [UIView animateWithDuration:0.3 animations:^{
-        mainView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.9, 0.9);
-        mainView.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 animations:^{
-            mainView.transform = CGAffineTransformMakeScale(1.0, 1.0);
-            mainView.alpha = 1.0;
-        } completion:^(BOOL finished1) {
+    CGRect frame = [view convertRect:view.bounds toView:_mainView];
 
-            if (myself.block) {
-                myself.block();
-            }
-        }];
-    }];
-}
-
-- (void)animateImage:(UIImage *)image fromView:(UIView *)view constraintToView:(UIView *)mainView {
-    CGRect frame = [view convertRect:view.bounds toView:mainView];
-
-    NSLog(@"Frame: %@", NSStringFromCGRect(frame));
     _imageHolder = [[MRImageHolder alloc] initWithFrame:frame];
     _imageHolder.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self addSubview:_imageHolder];
 
     _imageHolder.image = image;
 
-
     [self rotateAccordingToStatusBarOrientationAndSupportedOrientations];
+    [self moveImageHolder];
+}
 
+#pragma mark - Transitions
+
+- (void)moveImageHolder {
     __weak MRPhotoBrowserPresenter *myself = self;
 
     [UIView animateWithDuration:0.3 animations:^{
-        mainView.transform = CGAffineTransformScale(mainView.transform, 0.9, 0.9);
-        mainView.alpha = 0.0;
+        myself.mainView.transform = CGAffineTransformScale(myself.mainView.transform, 0.9, 0.9);
+        myself.mainView.alpha = 0.0;
 
         CGRect holderFrame = myself.imageHolder.frame;
-        CGSize size = myself.size;
+        CGSize size = myself.actualSize;
 
         holderFrame.origin.x = 0;
         holderFrame.origin.y = (size.height - holderFrame.size.height) / 2 - [UIApplication sharedApplication].statusBarFrame.size.height;
@@ -78,34 +70,25 @@
         myself.imageHolder.frame = holderFrame;
         [myself.imageHolder relayout];
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect holderFrame = myself.imageHolder.frame;
-            holderFrame.size.height = myself.imageHolder.imageHolder.bounds.size.height;
-            holderFrame.origin.y = (myself.size.height - holderFrame.size.height) / 2 - [UIApplication sharedApplication].statusBarFrame.size.height;
-            myself.imageHolder.frame = holderFrame;
-            [myself.imageHolder relayout];
-        } completion:^(BOOL finished1) {
-            if (myself.block) {
-                myself.block();
-            }
-        }];
+        [myself resizeImageHolder];
     }];
 }
 
-- (CGSize)size {
-    CGSize size = self.frame.size;
-    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ||
-            [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
-        size = CGSizeMake(size.height, size.width);
-    }
-    return size;
-}
-- (void)setHidden:(BOOL)hidden {
-    [super setHidden:hidden];
-    if (!hidden) {
-        [_imageHolder removeFromSuperview];
-        _imageHolder = nil;
-    }
+- (void)resizeImageHolder {
+    __weak MRPhotoBrowserPresenter *myself = self;
+
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect holderFrame = myself.imageHolder.frame;
+        holderFrame.size.height = myself.imageHolder.imageHolder.bounds.size.height;
+        holderFrame.origin.y = (myself.actualSize.height - holderFrame.size.height) / 2 - [UIApplication sharedApplication].statusBarFrame.size.height;
+        myself.imageHolder.frame = holderFrame;
+        [myself.imageHolder relayout];
+    } completion:^(BOOL finished1) {
+        if (myself.appearBlock) {
+            myself.appearBlock();
+        }
+        [myself showPhotoBrowser];
+    }];
 }
 
 - (void)dismissFromView:(UIView *)mainView block:(void (^)())completionBlock {
@@ -122,13 +105,76 @@
     }];
 }
 
+#pragma mark - StatusBar
+
+- (void)hideStatusBar {
+    self.savedStatusBarHiddenStatus = [UIApplication sharedApplication].isStatusBarHidden;
+    [UIApplication sharedApplication].statusBarHidden = YES;
+}
+
+- (void)restoreStatusBar {
+    [UIApplication sharedApplication].statusBarHidden = self.savedStatusBarHiddenStatus;
+    self.mainView.frame = [UIScreen mainScreen].applicationFrame;
+}
+
+#pragma mark - PhotoBrowser
+
+- (UIViewController *)rootViewController {
+    return UIApplication.sharedApplication.keyWindow.rootViewController;
+}
+
+- (void)showPhotoBrowser {
+    _photoBrowser = [MRPhotoBrowser new];
+    _photoBrowser.photos = self.galleryPhotos;
+    _photoBrowser.startPageIndex = self.startGalleryIndex;
+
+    __weak MRPhotoBrowserPresenter *myself = self;
+    _photoBrowser.block = ^(MRPhotoBrowser *browser) {
+        [myself hidePhotoBrowser];
+    };
+
+    UIViewController *rootViewController = self.rootViewController;
+    [rootViewController presentViewController:_photoBrowser animated:NO completion:^() {
+        NSLog(@"A photo gallery is presented.");
+        myself.hidden = YES;
+
+        [myself.imageHolder removeFromSuperview];
+        myself.imageHolder = nil;
+    }];
+}
+
+- (void)hidePhotoBrowser {
+    __weak MRPhotoBrowserPresenter *myself = self;
+    UIViewController *rootViewController = self.rootViewController;
+    [rootViewController dismissViewControllerAnimated:YES completion:^{
+        myself.photoBrowser = nil;
+        [myself restoreStatusBar];
+
+        [myself dismissFromView:myself.mainView block:^{
+            if (myself.dismissBlock) {
+                myself.dismissBlock();
+            }
+        }];
+    }];
+}
+#pragma mark - Orientation stuff
+
+- (CGSize)actualSize {
+    CGSize size = self.frame.size;
+    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ||
+            [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
+        size = CGSizeMake(size.height, size.width);
+    }
+    return size;
+}
+
 - (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification {
     [self rotateAccordingToStatusBarOrientationAndSupportedOrientations];
 }
 
 - (void)rotateAccordingToStatusBarOrientationAndSupportedOrientations {
     UIInterfaceOrientation statusBarOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    CGFloat angle = UIInterfaceOrientationAngleOfOrientation(statusBarOrientation);
+    CGFloat angle = [MRPhotoBrowserPresenter interfaceOrientationAngleOfOrientation:statusBarOrientation];
     CGFloat statusBarHeight = [[self class] getStatusBarHeight];
 
     CGAffineTransform transform = CGAffineTransformMakeRotation(angle);
@@ -165,8 +211,8 @@
     return frame;
 }
 
-CGFloat UIInterfaceOrientationAngleOfOrientation(UIInterfaceOrientation orientation) {
-    CGFloat angle;
++ (CGFloat)interfaceOrientationAngleOfOrientation:(UIInterfaceOrientation)orientation {
+    double angle;
 
     switch (orientation) {
         case UIInterfaceOrientationPortraitUpsideDown:
@@ -183,10 +229,6 @@ CGFloat UIInterfaceOrientationAngleOfOrientation(UIInterfaceOrientation orientat
             break;
     }
 
-    return angle;
-}
-
-UIInterfaceOrientationMask UIInterfaceOrientationMaskFromOrientation(UIInterfaceOrientation orientation) {
-    return 1 << orientation;
+    return (CGFloat)angle;
 }
 @end

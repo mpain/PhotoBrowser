@@ -4,9 +4,11 @@ typedef void (^MRPhotoBrowserPresenterBlock)();
 
 @interface MRPhotoBrowserPresenter : UIView
 
-@property (nonatomic, copy) MRPhotoBrowserPresenterBlock block;
+@property (nonatomic, copy) MRPhotoBrowserPresenterBlock appearBlock;
+@property (nonatomic, copy) MRPhotoBrowserPresenterBlock dismissBlock;
 
-- (void)animateForView:(UIView *)mainView;
-- (void)animateImage:(UIImage *)image fromView:(UIView *)view constraintToView:(UIView *)mainView;
-- (void)dismissFromView:(UIView *)mainView block:(void (^)())completionBlock;
+@property (nonatomic, assign) NSInteger startGalleryIndex;
+@property (nonatomic, strong) NSArray *galleryPhotos;
+
+- (void)presentPhotoBrowserWithImage:(UIImage *)image fromView:(UIView *)view constrainedToView:(UIView *)mainView;
 @end

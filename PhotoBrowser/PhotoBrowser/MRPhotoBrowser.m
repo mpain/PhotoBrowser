@@ -4,7 +4,7 @@
 #import "MRPhotoGrayButton.h"
 #import "UIView+MRShadow.h"
 
-#define kECButtonCloseSize CGSizeMake(60, 26)
+#define kECButtonCloseSize CGSizeMake(90, 40)
 
 #define kECPadding 10
 
@@ -45,7 +45,7 @@
     [self createControlsView];
     [super viewDidLoad];
 
-    _currentPageIndex = 0;
+    _currentPageIndex = self.startPageIndex;
     [self reloadData];
 }
 
@@ -74,7 +74,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self performSelector:@selector(hideControls) withObject:nil afterDelay:2.0];
+    [self performSelector:@selector(hideControls) withObject:nil afterDelay:5.0];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -131,7 +131,7 @@
     [button.titleLabel setTextColor:UIColor.whiteColor];
     [button.titleLabel setHighlightedTextColor:UIColor.darkGrayColor];
 
-    [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
     [button.titleLabel dropShadowWithColor:UIColor.blackColor offset:CGSizeMake(0, -1) radius:1.0f opacity:0.8];
     [button addTarget:self action:@selector(didTouchCloseButton:) forControlEvents:UIControlEventTouchUpInside];
     [controls addSubview:button];
@@ -369,9 +369,9 @@
     BOOL isShow = [show boolValue];
 
     __weak MRPhotoBrowser *myself = self;
-    [UIView animateWithDuration:isShow ? 0.1 : 0.4 animations:^{
+    [UIView animateWithDuration:isShow ? 0.25 : 0.5 delay:0.0 options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseOut) animations:^{
         myself.controlsView.alpha = isShow ? 1.0 : 0.0;
-    }];
+    } completion: nil];
 }
 
 - (void)toggleControls {
