@@ -173,8 +173,6 @@
 			children = (
 				CA01FD2D367DD1725FC8E431 /* MRMainViewController.m */,
 				CA01F301FB75EA335BB003EC /* MRMainViewController.h */,
-				CA01F944C02D8597D0453A61 /* MRImageHolder.m */,
-				CA01F80AE77363F6A2DB8D29 /* MRImageHolder.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -258,6 +256,8 @@
 				CA01F4675223D53CFCD3265A /* Categories */,
 				CA01F5D96EF9896709153C03 /* MRPhotoBrowserPresenter.h */,
 				CA01F59CBC0F96649E424CD9 /* MRPhotoBrowserPresenter.m */,
+				CA01F944C02D8597D0453A61 /* MRImageHolder.m */,
+				CA01F80AE77363F6A2DB8D29 /* MRImageHolder.h */,
 			);
 			path = PhotoBrowser;
 			sourceTree = "<group>";
