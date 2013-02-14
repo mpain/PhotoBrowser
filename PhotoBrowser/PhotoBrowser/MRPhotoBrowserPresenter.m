@@ -36,11 +36,12 @@
 }
 
 - (void)presentPhotoBrowserWithImage:(UIImage *)image fromView:(UIView *)view constrainedToView:(UIView *)mainView {
-    [self hideStatusBar];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:self];
+
+    CGRect frame = [view convertRect:view.bounds toView:mainView];
 
     _mainView = mainView;
-
-    CGRect frame = [view convertRect:view.bounds toView:_mainView];
 
     _imageHolder = [[MRImageHolder alloc] initWithFrame:frame];
     _imageHolder.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -50,11 +51,23 @@
 
     [self rotateAccordingToStatusBarOrientationAndSupportedOrientations];
     [self moveImageHolder];
+
+
+
 }
 
 #pragma mark - Transitions
 
 - (void)moveImageHolder {
+    CGSize statusBarFrame = [UIApplication sharedApplication].statusBarFrame.size;
+    CGFloat statusBarHeight = MIN(statusBarFrame.width, statusBarFrame.height);
+
+    [self hideStatusBar];
+    self.frame = [UIScreen mainScreen].applicationFrame;
+    CGRect holderFrame = self.imageHolder.frame;
+    holderFrame.origin.y += statusBarHeight;
+    self.imageHolder.frame = holderFrame;
+
     __weak MRPhotoBrowserPresenter *myself = self;
 
     [UIView animateWithDuration:0.3 animations:^{
@@ -65,7 +78,7 @@
         CGSize size = myself.actualSize;
 
         holderFrame.origin.x = 0;
-        holderFrame.origin.y = (size.height - holderFrame.size.height) / 2 - [UIApplication sharedApplication].statusBarFrame.size.height;
+        holderFrame.origin.y = (size.height - holderFrame.size.height) / 2;
         holderFrame.size.width = size.width;
         myself.imageHolder.frame = holderFrame;
         [myself.imageHolder relayout];
@@ -80,7 +93,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         CGRect holderFrame = myself.imageHolder.frame;
         holderFrame.size.height = myself.imageHolder.imageHolder.bounds.size.height;
-        holderFrame.origin.y = (myself.actualSize.height - holderFrame.size.height) / 2 - [UIApplication sharedApplication].statusBarFrame.size.height;
+        holderFrame.origin.y = (myself.actualSize.height - holderFrame.size.height) / 2;
         myself.imageHolder.frame = holderFrame;
         [myself.imageHolder relayout];
     } completion:^(BOOL finished1) {
@@ -151,6 +164,7 @@
         [myself restoreStatusBar];
 
         [myself dismissFromView:myself.mainView block:^{
+            [myself removeFromSuperview];
             if (myself.dismissBlock) {
                 myself.dismissBlock();
             }

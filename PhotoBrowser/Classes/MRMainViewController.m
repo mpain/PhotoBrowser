@@ -59,7 +59,6 @@ static NSString *const kMRPhotoAlbumBaseUrl = @"http://content.foto.mail.ru/mail
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
 
     _presenter = [[MRPhotoBrowserPresenter alloc] initWithFrame:window.rootViewController.view.bounds];
-    [window addSubview:_presenter];
 
     _presenter.startGalleryIndex = 2;
     _presenter.galleryPhotos = @[
