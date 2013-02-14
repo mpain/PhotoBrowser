@@ -54,12 +54,11 @@ static NSString *const kMRPhotoAlbumBaseUrl = @"http://content.foto.mail.ru/mail
 
 - (void)didTapImageHolder:(id)sender {
     NSLog(@"A touch is handling...");
-    _holder.hidden = YES;
-
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
 
-    _presenter = [[MRPhotoBrowserPresenter alloc] initWithFrame:window.rootViewController.view.bounds];
+    _holder.hidden = YES;
 
+    _presenter = [[MRPhotoBrowserPresenter alloc] initWithFrame:window.rootViewController.view.bounds];
     _presenter.startGalleryIndex = 2;
     _presenter.galleryPhotos = @[
         [self photoWithName:@"i-1929.jpg"],
